@@ -1,23 +1,40 @@
+employee_dict = {}
 
-details = {'srinivasa': 'srinivas123', 'hyderabad': 'telangana', 'andhra': 'pradesh'}
-
-def login_details(username, password):
-    if username in details and details[username] == password:
-        print('You have successfully logged in')
-    else:
-        print('Details not found.')
-        add_details = input('Do you want to add these details? (yes/no): ')
-        if add_details.lower() == 'yes':
-            add_new_details(username)
+def info_emp():
+    a = int(input('Enter the number of employees: '))
+    
+    for i in range(1, a+1):
+        name = input('Enter the name  ')
+        domain = input('Enter the domain of emp: ')
+        
+        while True:
+            email = input('Enter the email  ')
+            if email.endswith('.com'):
+                break
+            else:
+                print('Enter a valid email')
+        
+        while True:
+            emp_id = input('enter the number')
+            if emp_id.isalnum():
+                break
+            else:
+                print('Enter a valid empl_id')
+        
+        if domain in employee_dict:
+            employee_dict[domain].append({'name': name, 'email': email, 'emp_id': emp_id})
         else:
-            print('Login failed.')
+            employee_dict[domain] = [{'name': name, 'email': email, 'emp_id': emp_id}]
 
-def add_new_details(username):
-    new_password = input(f'Enter a password for {username}: ')
-    details[username] = new_password
-    print(f'New user {username} has been added with password: {new_password}')
+info_emp()
 
+for domain in employee_dict.keys():
+    print(domain)
 
-user_1 = input('Enter the username: ')
-pass_1 = input('Enter the password: ')
-login_details(user_1, pass_1)
+enter_domain = input('Enter the domain : ')
+if enter_domain in employee_dict:
+    print(f'Domain details for "{enter_domain}":')
+    for emp in employee_dict[enter_domain]:
+        print(f"Name: {emp['name']}, Email: {emp['email']}, Employee ID: {emp['emp_id']}")
+else:
+    print('Details not found.')
